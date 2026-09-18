@@ -1,4 +1,5 @@
 # Angular
+<<<<<<< HEAD
 frontend/purchase-bill-app/node_modules/
 frontend/purchase-bill-app/dist/
 frontend/purchase-bill-app/.angular/
@@ -11,3 +12,24 @@ backend/PurchaseBillApi/obj/
 .vs/
 .vscode/
 *.user
+=======
+node_modules/
+dist/
+.angular/
+
+# .NET
+bin/
+obj/
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+
+# Environment
+.env
+.env.*
+
+# Logs
+*.log
+>>>>>>> d1963cc9a1c7a820eeead8cbf0b3f371a50e4824

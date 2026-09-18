@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Purchase Bill App — Full Stack Developer Assignment
 
 Angular + ASP.NET Core solution for the Enhanzer Full Stack Developer Trainee
@@ -114,3 +115,27 @@ Open `http://localhost:4200`.
   instant feedback.
 - Locations are scoped per-username in `Location_Details`, so multiple users
   logging in on the same machine don't see each other's batches.
+=======
+\# Enhanzer Full Stack Developer Assessment
+
+
+
+Full Stack Developer Trainee Technical Assessment for Enhanzer.
+
+
+
+\## Technologies
+
+
+
+\- Angular
+
+\- TypeScript
+
+\- ASP.NET Core .NET 8
+
+\- C#
+
+\- SQL Server
+
+>>>>>>> d1963cc9a1c7a820eeead8cbf0b3f371a50e4824
