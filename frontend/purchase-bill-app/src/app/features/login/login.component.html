@@ -1,0 +1,43 @@
+<div class="login-page">
+  <div class="login-card">
+    <h1 class="greeting">Hi</h1>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" novalidate>
+      <div class="field">
+        <span class="icon">✉</span>
+        <input
+          type="email"
+          formControlName="email"
+          placeholder="Email*"
+          autocomplete="username"
+        />
+      </div>
+      <div class="error" *ngIf="email?.invalid && email?.touched">
+        Please enter a valid email address.
+      </div>
+
+      <div class="field">
+        <span class="icon">🔑</span>
+        <input
+          [type]="showPassword ? 'text' : 'password'"
+          formControlName="password"
+          placeholder="Password*"
+          autocomplete="current-password"
+        />
+        <span class="toggle-visibility" (click)="togglePasswordVisibility()">
+          {{ showPassword ? '🙈' : '👁' }}
+        </span>
+      </div>
+      <div class="error" *ngIf="password?.invalid && password?.touched">
+        Password is required.
+      </div>
+
+      <div class="server-error" *ngIf="errorMessage">{{ errorMessage }}</div>
+
+      <button type="submit" class="login-btn" [disabled]="isLoading">
+        <span *ngIf="!isLoading">LOGIN</span>
+        <span *ngIf="isLoading">Logging in...</span>
+      </button>
+    </form>
+  </div>
+</div>

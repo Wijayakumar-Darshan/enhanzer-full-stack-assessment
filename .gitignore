@@ -1,0 +1,13 @@
+# Angular
+frontend/purchase-bill-app/node_modules/
+frontend/purchase-bill-app/dist/
+frontend/purchase-bill-app/.angular/
+
+# .NET
+backend/PurchaseBillApi/bin/
+backend/PurchaseBillApi/obj/
+
+# Misc
+.vs/
+.vscode/
+*.user

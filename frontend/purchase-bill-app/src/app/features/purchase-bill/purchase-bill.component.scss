@@ -1,0 +1,151 @@
+.pb-page {
+  padding: 24px;
+  font-family: inherit;
+}
+
+.pb-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+
+  h2 {
+    margin: 0;
+  }
+
+  .logout-btn {
+    background: #eee;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+}
+
+.pb-layout {
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+}
+
+.pb-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.pb-form {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 20px;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  min-width: 140px;
+
+  label {
+    font-size: 12px;
+    color: #555;
+    margin-bottom: 4px;
+  }
+
+  input,
+  select {
+    padding: 8px;
+    border: 1px solid #d1d5db;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+
+  small {
+    color: #888;
+    font-size: 11px;
+  }
+}
+
+.totals-preview {
+  margin-top: 12px;
+  gap: 32px;
+  font-size: 14px;
+}
+
+.server-error {
+  color: #d9534f;
+  margin-top: 8px;
+}
+
+.add-btn {
+  margin-top: 16px;
+  background: #10b981;
+  color: #fff;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+.items-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+
+  th,
+  td {
+    border: 1px solid #e5e7eb;
+    padding: 8px 10px;
+    text-align: right;
+    font-size: 13px;
+  }
+
+  th:first-child,
+  td:first-child,
+  th:nth-child(2),
+  td:nth-child(2) {
+    text-align: left;
+  }
+
+  th {
+    background: #f9fafb;
+  }
+}
+
+.empty-state {
+  color: #888;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.pb-summary {
+  width: 220px;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 16px;
+
+  h3 {
+    margin-top: 0;
+  }
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 0;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 14px;
+}

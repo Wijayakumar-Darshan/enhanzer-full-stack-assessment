@@ -1,0 +1,125 @@
+<div class="pb-page">
+  <header class="pb-header">
+    <h2>Purchase Bill</h2>
+    <button class="logout-btn" (click)="logout()">Logout</button>
+  </header>
+
+  <div class="pb-layout">
+    <div class="pb-main">
+      <form [formGroup]="form" (ngSubmit)="onAdd()" class="pb-form" novalidate>
+        <div class="row">
+          <div class="form-group">
+            <label>Item*</label>
+            <input
+              type="text"
+              formControlName="itemName"
+              list="item-options"
+              (input)="filterItems($any($event.target).value)"
+              placeholder="Search item..."
+            />
+            <datalist id="item-options">
+              <option *ngFor="let opt of filteredItemOptions" [value]="opt"></option>
+            </datalist>
+          </div>
+
+          <div class="form-group">
+            <label>Batch*</label>
+            <select formControlName="batch">
+              <option value="" disabled>Select batch</option>
+              <option *ngFor="let loc of locations" [value]="loc.location_Name">
+                {{ loc.location_Name }}
+              </option>
+            </select>
+            <small *ngIf="isLoadingLocations">Loading locations...</small>
+          </div>
+
+          <div class="form-group">
+            <label>Standard Cost</label>
+            <input type="number" formControlName="standardCost" min="0" />
+          </div>
+
+          <div class="form-group">
+            <label>Standard Price</label>
+            <input type="number" formControlName="standardPrice" min="0" />
+          </div>
+
+          <div class="form-group">
+            <label>Margin</label>
+            <input type="number" formControlName="margin" readonly />
+          </div>
+
+          <div class="form-group">
+            <label>Qty*</label>
+            <input type="number" formControlName="qty" min="1" />
+          </div>
+
+          <div class="form-group">
+            <label>Free Qty</label>
+            <input type="number" formControlName="freeQty" min="0" />
+          </div>
+
+          <div class="form-group">
+            <label>Discount %</label>
+            <input type="number" formControlName="discount" min="0" max="100" />
+          </div>
+        </div>
+
+        <div class="row totals-preview">
+          <div><strong>Total Cost:</strong> {{ totalCostPreview | number: '1.2-2' }}</div>
+          <div><strong>Total Selling:</strong> {{ totalSellingPreview | number: '1.2-2' }}</div>
+        </div>
+
+        <div class="server-error" *ngIf="errorMessage">{{ errorMessage }}</div>
+
+        <button type="submit" class="add-btn" [disabled]="isSubmitting">
+          {{ isSubmitting ? 'Adding...' : 'Add' }}
+        </button>
+      </form>
+
+      <table class="items-table" *ngIf="items.length">
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Batch</th>
+            <th>Std Cost</th>
+            <th>Std Price</th>
+            <th>Margin</th>
+            <th>Qty</th>
+            <th>Free Qty</th>
+            <th>Discount</th>
+            <th>Total Cost</th>
+            <th>Total Selling</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of items">
+            <td>{{ item.itemName }}</td>
+            <td>{{ item.batch }}</td>
+            <td>{{ item.standardCost | number: '1.2-2' }}</td>
+            <td>{{ item.standardPrice | number: '1.2-2' }}</td>
+            <td>{{ item.margin | number: '1.2-2' }}</td>
+            <td>{{ item.qty }}</td>
+            <td>{{ item.freeQty }}</td>
+            <td>{{ item.discount }}</td>
+            <td>{{ item.totalCost | number: '1.2-2' }}</td>
+            <td>{{ item.totalSelling | number: '1.2-2' }}</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p class="empty-state" *ngIf="!items.length">No items added yet.</p>
+    </div>
+
+    <aside class="pb-summary">
+      <h3>Item Summary</h3>
+      <div class="summary-row">
+        <span>Total Items</span>
+        <span>{{ totalItems }}</span>
+      </div>
+      <div class="summary-row">
+        <span>Total Qty</span>
+        <span>{{ totalQty }}</span>
+      </div>
+    </aside>
+  </div>
+</div>
