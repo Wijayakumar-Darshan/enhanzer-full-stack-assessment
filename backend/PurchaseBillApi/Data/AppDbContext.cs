@@ -8,9 +8,8 @@ public class AppDbContext : DbContext
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
     public DbSet<LocationDetail> LocationDetails => Set<LocationDetail>();
-    public DbSet<PurchaseBillItem> PurchaseBillItems => Set<PurchaseBillItem>();
     public DbSet<PurchaseOrder> PurchaseOrders => Set<PurchaseOrder>();
-    public DbSet<PurchaseOrderItem> PurchaseOrderItems => Set<PurchaseOrderItem>();
+    public DbSet<PurchaseBillItem> PurchaseBillItems => Set<PurchaseBillItem>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -19,10 +18,10 @@ public class AppDbContext : DbContext
             .IsUnique();
 
         modelBuilder.Entity<PurchaseOrder>()
-            .HasMany(p => p.Items)
+            .HasMany(o => o.Items)
             .WithOne(i => i.PurchaseOrder)
             .HasForeignKey(i => i.Purchase_Order_Id)
-            .OnDelete(DeleteBehavior.Cascade);    
+            .OnDelete(DeleteBehavior.Cascade);
 
         base.OnModelCreating(modelBuilder);
     }

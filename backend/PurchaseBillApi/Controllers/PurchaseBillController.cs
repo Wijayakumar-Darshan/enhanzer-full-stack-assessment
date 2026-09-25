@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PurchaseBillApi.DTOs;
@@ -17,24 +18,34 @@ public class PurchaseBillController : ControllerBase
         _purchaseBillService = purchaseBillService;
     }
 
-    /// <summary>GET api/purchasebill - list existing items (optional, for reload/demo purposes).</summary>
+    /// <summary>GET api/purchasebill - lists saved purchase orders (header + items), newest first.</summary>
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
-        var items = await _purchaseBillService.GetAllAsync();
-        return Ok(items);
+        var orders = await _purchaseBillService.GetAllAsync();
+        return Ok(orders);
     }
 
-    /// <summary>POST api/purchasebill - Task 2: add a purchase bill line item.</summary>
+    /// <summary>POST api/purchasebill - Task 1: saves the purchase order using the fields
+    /// available in the UI (every item row currently on screen) and persists it to SQL.</summary>
     [HttpPost]
-    public async Task<IActionResult> Add([FromBody] PurchaseBillItemDto item)
+    public async Task<IActionResult> Save([FromBody] SavePurchaseOrderRequest request)
     {
-        if (!ModelState.IsValid || string.IsNullOrWhiteSpace(item.ItemName) || item.Qty <= 0)
+        if (request?.Items == null || request.Items.Count == 0)
         {
-            return BadRequest("Item name and a positive quantity are required.");
+            return BadRequest("At least one item is required to save a purchase order.");
         }
 
-        var saved = await _purchaseBillService.AddAsync(item);
+        foreach (var item in request.Items)
+        {
+            if (string.IsNullOrWhiteSpace(item.ItemName) || item.Qty <= 0)
+            {
+                return BadRequest("Every item needs a name and a positive quantity.");
+            }
+        }
+
+        var username = User.FindFirstValue(ClaimTypes.Name);
+        var saved = await _purchaseBillService.SaveOrderAsync(request, username);
         return CreatedAtAction(nameof(GetAll), new { id = saved.Id }, saved);
     }
 }
