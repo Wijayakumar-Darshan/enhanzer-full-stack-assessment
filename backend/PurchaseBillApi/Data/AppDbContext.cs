@@ -9,12 +9,20 @@ public class AppDbContext : DbContext
 
     public DbSet<LocationDetail> LocationDetails => Set<LocationDetail>();
     public DbSet<PurchaseBillItem> PurchaseBillItems => Set<PurchaseBillItem>();
+    public DbSet<PurchaseOrder> PurchaseOrders => Set<PurchaseOrder>();
+    public DbSet<PurchaseOrderItem> PurchaseOrderItems => Set<PurchaseOrderItem>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<LocationDetail>()
             .HasIndex(l => new { l.Location_Code, l.Username })
             .IsUnique();
+
+        modelBuilder.Entity<PurchaseOrder>()
+            .HasMany(p => p.Items)
+            .WithOne(i => i.PurchaseOrder)
+            .HasForeignKey(i => i.Purchase_Order_Id)
+            .OnDelete(DeleteBehavior.Cascade);    
 
         base.OnModelCreating(modelBuilder);
     }
